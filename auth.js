@@ -90,7 +90,7 @@ passport.use(new BearerStrategy(
         if (!user) { return done(null, false); }
         // to keep this example simple, restricted scopes are not implemented,
         // and this is just for illustrative purposes
-        var info = { scope: '*' }
+        var info = { scope: '*' };
         done(null, user, info);
       });
     });

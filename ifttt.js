@@ -17,8 +17,31 @@ var ensureGoodChannelKey = function(req,res,next) {
     }
 };
 
+var oauthenticate = function(req,res,next) {
+    passport.authenticate('bearer', { session: false }, function(err, user, info) {
+        if (err) { return next(err); } // will generate a 500 error
+        if (!user) {
+          return res.send({ success : false, message : 'authentication failed' });
+        }
+        // return res.send({ success : true, message : 'authentication succeeded' });
+        // return next();
+        res.json({});
+    })(req, res, next);
+};
+
 exports.userinfo = [
-    passport.authenticate('bearer', { session: false }),
+    // oauthenticate,
+    // passport.authenticate('bearer', { session: false }),
+    passport.authenticate('bearer', { session: false, failWithError: true }),
+
+    // passport.authenticate('bearer', { session: false, failWithError: true },
+    // null,
+    // function(err, req, res, next) {
+    //     // handle error
+    //     // if (req.xhr) { return res.json(err); }
+    //     return res.json({ success : false, message : 'authentication failed' });
+    // }
+    // ),
 
     // req.authInfo is set using the `info` argument supplied by
     // `BearerStrategy`.  It is typically used to indicate scope of the token,
@@ -48,11 +71,26 @@ exports.testsetup = [
     function(req, res) {
         res.json( {
             data: {
-                samples: {
-
-                },
-                accessToken: 'Iaqtf5jDEMOTOKENACCESSTOKEN2f2w'  // FIXME
-            }
+                "samples": {
+                   "actions": {
+                     "blink": {
+                       "name": "test1"
+                     },
+                     "setcolor": {
+                       "what_color": "#FF00FF"
+                     }
+                   },
+                   "actionRecordSkipping": {
+                     "blink": {
+                       "name": "test1"
+                     },
+                     "setcolor": {
+                       "what_color": "#FF00FF"
+                     }
+                   }
+               },
+               accessToken: 'Iaqtf5jDEMOTOKENACCESSTOKEN2f2w' // FIXME
+           }
         });
     }
 ];

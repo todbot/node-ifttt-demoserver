@@ -35,12 +35,25 @@ app.use(function(req, res, next) {
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(app.router);
-app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+// app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 
 // Passport configuration
 
 require('./auth');
 
+// Middleware error handler for json response
+function handleError(err,req,res,next){
+    var output = {
+        errors: [{
+            name: err.name,
+            message: err.message,
+            text: err.toString()
+        }]
+    };
+    var statusCode = err.status || 500;
+    res.status(statusCode).json(output);
+}
+app.use(handleError);
 
 app.get('/', site.index);
 app.get('/login', site.loginForm);
@@ -52,7 +65,7 @@ app.get('/dialog/authorize', oauth2.authorization);
 app.post('/dialog/authorize/decision', oauth2.decision);
 app.post('/oauth/token', oauth2.token);
 
-app.get('/api/userinfo', user.info);
+// app.get('/api/userinfo', user.info);
 
 app.get('/ifttt/v1/user/info', ifttt.userinfo);
 

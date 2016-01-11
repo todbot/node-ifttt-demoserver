@@ -1,4 +1,4 @@
-// first token is a demo token
+// first token is a demo token FIXME
 var tokens = {
 Iaqtf5jDEMOTOKENACCESSTOKEN2f2w: { userID: '999', clientID: '888' }
 };
