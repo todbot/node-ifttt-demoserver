@@ -3,7 +3,7 @@
  */
 var express = require('express');
 var passport = require('passport');
-var multipart = require('connect-multiparty');
+var bodyParser = require('body-parser');
 
 var site = require('./site');
 var oauth2 = require('./oauth2');
@@ -20,8 +20,8 @@ app.set('view engine', 'ejs');
 app.use(express.logger());
 app.use(express.cookieParser());
 app.use(express.urlencoded());
-app.use(multipart());
-// app.use(express.bodyParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(express.session({ secret: 'keyboard cat' }));
 /*
 app.use(function(req, res, next) {

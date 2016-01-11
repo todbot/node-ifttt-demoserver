@@ -15,10 +15,11 @@
     "url": "git://github.com/todbot/node-ifttt-demoserver.git"
   },
   "dependencies": {
+    "body-parser": "^1.14.2",
     "connect-ensure-login": "0.1.x",
-    "connect-multiparty": "^2.0.0",
     "ejs": "2.3.x",
     "express": "3.x.x",
+    "lodash": "^3.10.1",
     "oauth2orize": "0.x.x",
     "passport": "~0.3.2",
     "passport-http": "0.2.x",
